@@ -1,6 +1,9 @@
 import re
 
-LINK_FINDER_RE = re.compile('\\"http://([^\\"]+)\\"')
+#LINK_FINDER_RE = re.compile('\\"http://([^\\"]+)\\"')
+
+LINK_FINDER_STR = "http://([^\",^\n,^\\s,^<,^>]+)"
+LINK_FINDER_RE = re.compile(LINK_FINDER_STR)
 
 def scanlinks(data):
     
