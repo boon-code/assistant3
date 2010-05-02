@@ -30,14 +30,14 @@ class CustomPfmain(Pfmain):
     # Callback to handle _butAdd widget option -command
     def _butAdd_command(self, *args):
         
-		self._app.show_scan()
+        self._app.show_scan()
 
     # _butExit_command --
     #
     # Callback to handle _butExit widget option -command
     def _butExit_command(self, *args):
         
-		self._app.exit()
+        self._app.exit()
 
     # _butHistory_command --
     #
@@ -62,8 +62,8 @@ class CustomPfmain(Pfmain):
         
         curr = self._lsPackets.curselection()
         if len(curr) > 0:
-        	curr = curr[0]
-        	name = self._lsPackets.get(curr)
+            curr = curr[0]
+            name = self._lsPackets.get(curr)
         result = self._app.sendcmd('kill ' + name)
         self._app.report('starting packet processing: ' + result)
         self.__nmsg('starting packet processing: ' + result)
@@ -72,8 +72,8 @@ class CustomPfmain(Pfmain):
     #
     # Callback to handle _butPwd widget option -command
     def _butPwd_command(self, *args):
-    	
-    	self._app.show_pwd()
+        
+        self._app.show_pwd()
 
     # _butResetsoft_command --
     #
@@ -82,8 +82,8 @@ class CustomPfmain(Pfmain):
         
         curr = self._lsPackets.curselection()
         if len(curr) > 0:
-        	curr = curr[0]
-        	name = self._lsPackets.get(curr)
+            curr = curr[0]
+            name = self._lsPackets.get(curr)
         result = self._app.sendcmd('reset ' + name)
         self._app.report('starting packet processing: ' + result)
         self.__nmsg('starting packet processing: ' + result)
@@ -94,10 +94,10 @@ class CustomPfmain(Pfmain):
     def _butShutdown_command(self, *args):
         
         if tkMessageBox.askyesno("Shutdown Nimmermehr?", 
-        		"Are you sure you want to shutdown Nimmermehr?"):
-        	result = self._app.sendcmd('shutdown')
-        	self._app.report('trying to shut down: ' + result)
-        	self.__nmsg('trying to shut down: ' + result)
+                "Are you sure you want to shutdown Nimmermehr?"):
+            result = self._app.sendcmd('shutdown')
+            self._app.report('trying to shut down: ' + result)
+            self.__nmsg('trying to shut down: ' + result)
 
     # _butStart_command --
     #
@@ -106,8 +106,8 @@ class CustomPfmain(Pfmain):
         
         curr = self._lsPackets.curselection()
         if len(curr) > 0:
-        	curr = curr[0]
-        	name = self._lsPackets.get(curr)
+            curr = curr[0]
+            name = self._lsPackets.get(curr)
         result = self._app.sendcmd('start ' + name)
         self._app.report('starting packet processing: ' + result)
         self.__nmsg('starting packet processing: ' + result)
@@ -150,42 +150,42 @@ class CustomPfmain(Pfmain):
     # BEGIN USER CODE class
     
     def __nmsg(self, msg):
-    	self._txLog.delete('0.0', 'end')
-    	self._txLog.insert('end', msg)
+        self._txLog.delete('0.0', 'end')
+        self._txLog.insert('end', msg)
     
     def __amsg(self, msg):
-    	self._txLog.insert('end', msg)
+        self._txLog.insert('end', msg)
     
     def __update_packets(self, root):
-    	
-    	# update listbox
-    	pstatus = self._app.read_ps()
-    	if len(pstatus) > 0:
-    		pstatus = [i.split(' ', 1) for i in pstatus]
-    		lnames = self._lsPackets.get(0, 'end')
-    		pnames = [i[0] for i in pstatus]
-    		
-    		ran = range(len(lnames))
-    		ran.sort(reverse = True)
-    		
-    		for i in ran:
-    			name = self._lsPackets.get(i)
-    			if not name in pnames:
-    				self._lsPackets.delete(i)
-    		
-    		for name in pnames:
-    			if not name in lnames:
-    				self._lsPackets.insert('end', name)
-    		# update label
-    		curr = self._lsPackets.curselection()
-    		if len(curr) > 0:
-    			curr = self._lsPackets.get(curr[0])
-    			for i in pstatus:
-    				if i[0] == curr:
-    					self._labStatus.config(text = '\n  '.join(i))
-    	
-    	root.after(UPDATE_TIME, self.__update_packets, root)
-	
+        
+        # update listbox
+        pstatus = self._app.read_ps()
+        if len(pstatus) > 0:
+            pstatus = [i.split(' ', 1) for i in pstatus]
+            lnames = self._lsPackets.get(0, 'end')
+            pnames = [i[0] for i in pstatus]
+            
+            ran = range(len(lnames))
+            ran.sort(reverse = True)
+            
+            for i in ran:
+                name = self._lsPackets.get(i)
+                if not name in pnames:
+                    self._lsPackets.delete(i)
+            
+            for name in pnames:
+                if not name in lnames:
+                    self._lsPackets.insert('end', name)
+            # update label
+            curr = self._lsPackets.curselection()
+            if len(curr) > 0:
+                curr = self._lsPackets.get(curr[0])
+                for i in pstatus:
+                    if i[0] == curr:
+                        self._labStatus.config(text = '\n  '.join(i))
+        
+        root.after(UPDATE_TIME, self.__update_packets, root)
+    
     def __init__(self, root, app):
 
         Pfmain.__init__(self, root)

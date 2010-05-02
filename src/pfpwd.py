@@ -31,9 +31,9 @@ class CustomPfpwd(Pfpwd):
         
         new_pwd = self._entPwd.get()
         if new_pwd.strip(" ") != "":
-        	result = self._app.sendcmd('tmp-add-pwd ' + new_pwd)
-        	self._app.report("temporary add password: " + result)
-        	self._butUpdate_command()
+            result = self._app.sendcmd('tmp-add-pwd ' + new_pwd)
+            self._app.report("temporary add password: " + result)
+            self._butUpdate_command()
 
     # _butUpdate_command --
     #
@@ -46,7 +46,7 @@ class CustomPfpwd(Pfpwd):
         self._lsPwd.delete(0, 'end')
         
         for pwd in pwd_list:
-        	self._lsPwd.insert('end', pwd)
+            self._lsPwd.insert('end', pwd)
 
     # _entPwd_invalidcommand --
     #
@@ -83,11 +83,11 @@ class CustomPfpwd(Pfpwd):
     # BEGIN USER CODE class
     
     def __init__(self, root, app):
-    	
-    	Pfpwd.__init__(self, root)
-    	self._app = app
-    	self._entPwd.bind("<Return>", self._butAdd_command)
-    	self._butUpdate_command()
+        
+        Pfpwd.__init__(self, root)
+        self._app = app
+        self._entPwd.bind("<Return>", self._butAdd_command)
+        self._butUpdate_command()
 
     # END USER CODE class
 
