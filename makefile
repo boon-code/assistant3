@@ -3,6 +3,7 @@ include userconfig.mk
 
 PACKET=bin/$(NAME).sh
 MAIN=src/$(NAME).py
+DISTNAME=$(NAME)_dist.tgz
 SRCS=$(wildcard src/*.py)
 OBJS=$(SRCS:.py=.notabs)
 
@@ -12,7 +13,7 @@ $(PACKET): $(MAIN)
 
 all: $(PACKET)
 
-.PHONY: clean git-clean run packet expand
+.PHONY: clean git-clean run packet expand dist
 
 git-clean: clean
 #	rm -f *~ */*~
@@ -30,9 +31,13 @@ expand: $(OBJS)
 clean:
 	rm -fr ./bin/
 	rm -f ./src/*.pyc ./src/*.notabs
+	rm -f $(DISTNAME)
 
 run:
 	python $(MAIN) $(ARGS)
 
 packet: $(PACKET)
 	sh $(PACKET)
+
+dist: $(PACKET)
+	tar cz  --directory=bin/ $(NAME).sh >$(DISTNAME)
